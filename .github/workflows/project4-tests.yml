@@ -4,6 +4,10 @@ on:
   push:
     paths:
       - "projects/project-4/**"
+  push:
+    paths:
+      - "projects/project-2/**"
+      - ".github/workflows/project2-tests.yml"
 
 jobs:
   grade-project:
