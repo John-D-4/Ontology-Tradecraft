@@ -1,0 +1,497 @@
+## https://github.com/John-D-4/Ontology-Tradecraft/blob/main/projects/project-2/assignment/src/aircraft_data.xlsx
+
+
+@prefix : <http://purl.obolibrary.org/obo/bfo#> .
+@prefix dc: <http://purl.org/dc/terms/> .
+@prefix owl: <http://www.w3.org/2002/07/owl#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix xml: <http://www.w3.org/XML/1998/namespace> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix dc11: <http://purl.org/dc/elements/1.1/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix p2: <https://nonsense.domain/John-D-4/Project-2#> .
+@base <http://purl.obolibrary.org/obo/bfo> .
+
+## to do: subclass onProperty and allValuesFrom??
+
+## aircraft is an object:
+## Aircraft:
+<http://nonsense.domain/John-D-4/Project-2/Aircraft> rdf:type owl:Class ;
+     rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000030> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <http://purl.obolibrary.org/obo/BFO_0000030>
+                     ] ;
+     dc11:identifier "000-P2" ;
+     rdfs:label "Aircraft"@en ;
+     skos:definition "An aircraft is an object, inherited from BFO."@en ;
+     skos:example "An airplane"@en .
+
+## Ignore information bearing artifact BFO_0000141 for scope management
+## Aircraft record, subclass of immaterial entity:
+<http://nonsense.domain/John-D-4/Project-2/Aircraft_Record> rdf:type owl:Class ;
+     rdfs:subClassOf <http://purl.obolibrary.org/obo/BFO_0000141> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "050-P2" ;
+     rdfs:label "Aircraft_record"@en ;
+     skos:definition "An aircraft record is a dependent continuant containing information about an Aircraft."@en ;
+     skos:example "Database record 0A-example-12345678"@en .
+
+## ICAO_Code:
+<http://nonsense.domain/John-D-4/Project-2/ICAO_Code> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "001-P2" ;
+     rdfs:label "ICAO_Code"@en ;
+     skos:definition "International Civil Aviation Organization (ICAO) Aircraft Type Designator. Standard abbreviations for aircraft assigned by ICAO that are most commonly used by air traffic services."@en ;
+     skos:example "An ICAO code for any Airbus 319 is A319"@en .
+
+## FAA_Designator
+<http://nonsense.domain/John-D-4/Project-2/FAA_Desginator> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "002-P2" ;
+     rdfs:label "FAA_Desginator"@en ;
+     skos:definition "Standard abbreviations for aircraft assigned by FAA that are most commonly used by air traffic services."@en ;
+     skos:example "The FAA Designator of an Airbus 319 is A319."@en .
+
+## Manufacturer
+<http://nonsense.domain/John-D-4/Project-2/Manufacturer> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "003-P2" ;
+     rdfs:label "Manufacturer"@en ;
+     skos:definition "Name of the aircraft manufacturer. In some cases, there are multiple manufacturers for a specific aircraft type."@en ;
+     skos:example "Airbus"@en 
+     .
+## Model_FAA
+<http://nonsense.domain/John-D-4/Project-2/Model_FAA> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "004-P2" ;
+     rdfs:label "Model_FAA"@en ;
+     skos:definition "FAA Aircraft Model Name"@en ;
+     skos:example "Airbus A319"@en .
+
+## Model_BADA
+<http://nonsense.domain/John-D-4/Project-2/Model_BADA> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "005-P2" ;
+     rdfs:label "Model_BADA"@en ;
+     skos:definition "Euecontrol Base of Aircraft Data (BADA) Aircraft Model Name"@en ;
+     skos:example "Airbus A319-131"@en .
+
+## Physical_Class_Engine
+<http://nonsense.domain/John-D-4/Project-2/Physical_Class_Engine> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "006-P2" ;
+     rdfs:label "Physical_Class_Engine"@en ;
+     skos:definition "Engine Class"@en ;
+     skos:example "Electric, Jet, Turboprop, Piston, Turboshaft, and Rocket are engine classes."@en .
+
+## Num_Engines
+<http://nonsense.domain/John-D-4/Project-2/Num_Engines> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "007-P2" ;
+     rdfs:label "Num_Engines"@en ;
+     skos:definition "Number of propulsion engines"@en ;
+     skos:example "An A319 has two engines."@en .
+## AAC
+<http://nonsense.domain/John-D-4/Project-2/AAC> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "030-P2" ;
+     rdfs:label "AAC"@en ;
+     skos:definition "AAC is determined based on the highest reported Approach Speed/Stall Speed in Flight Standardization Board (FSB) or aircraft manufacturer's documentation. For aircraft with a single reported AAC value, columns I and J are empty."@en ;
+     skos:example "C"@en .
+
+## AAC_minimum
+<http://nonsense.domain/John-D-4/Project-2/AAC_minimum> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "031-P2" ;
+     rdfs:label "AAC_minimum"@en ;
+     skos:definition "Minimum AAC is determined based on Approach Speed/Stall Speed in certain landing flap configurations and landing weights. It is applicable to aircraft with dual values of Approach Speed/Stall Speed in Flight Standardization Board (FSB) documentation."@en ;
+     skos:example "C"@en .
+
+## AAC_maximum
+<http://nonsense.domain/John-D-4/Project-2/AAC_maximum> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "032-P2" ;
+     rdfs:label "AAC_maximum"@en ;
+     skos:definition "Maximum AAC is determined based on Approach Speed/Stall Speed in certain landing flap configurations and maximum landing weights. It is applicable to aircraft with dual values of Approach Speed/Stall Speed in Flight Standardization Board (FSB) documentation."@en ;
+     skos:example "C"@en .
+
+## ADG
+<http://nonsense.domain/John-D-4/Project-2/ADG> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "033-P2" ;
+     rdfs:label "ADG"@en ;
+     skos:definition "ADG is determined based on combination of Tail Height and Wingspan per FAA AC 150/5300-13B."@en ;
+     skos:example "VI"@en .
+
+## TDG
+<http://nonsense.domain/John-D-4/Project-2/TDG> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "034-P2" ;
+     rdfs:label "TDG"@en ;
+     skos:definition "TDG is determined based on combination of Main Gear Width and Cockpit to Main Gear Distance per FAA AC 150/5300-13B."@en ;
+     skos:example "5"@en .
+
+## Approach_Speed_knot
+<http://nonsense.domain/John-D-4/Project-2/Approach_Speed_knot> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "035-P2" ;
+     rdfs:label "Approach_Speed_knot"@en ;
+     skos:definition "Approach speed is the highest speed in the approach phase determined by considering landing flap configurations and MALW in Flight Standardization Board (FSB) or aircraft manufacturer's documentation. For aircraft with a single reported Approach Speed, columns N and O are empty."@en ;
+     skos:example "121"@en .
+## Approach_Speed_minimum_knot
+<http://nonsense.domain/John-D-4/Project-2/Approach_Speed_minimum_knot> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "036-P2" ;
+     rdfs:label "Approach_Speed_minimum_knot"@en ;
+     skos:definition "Minimum AAC is determined based on Approach Speed (or adjusted stalling speed when approach speed is not known) at the optimum landing flap configuration and at the Maximum Allowable Landing Weight (MALW) as reported in Flight Standardization Board (FSB) documentation."@en ;
+     skos:example "142"@en .
+## Approach_Speed_maximum_knot
+<http://nonsense.domain/John-D-4/Project-2/Approach_Speed_maximum_knot> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "037-P2" ;
+     rdfs:label "Approach_Speed_maximum_knot"@en ;
+     skos:definition "Maximum Approach speed is determined by considering certain landing flap configurations and MALW. It is applicable to aircraft with dual values of Approach Speed in Flight Standardization Board (FSB) documentation."@en ;
+     skos:example "140"@en .
+## Wingspan_ft_without_winglets_sharklets
+<http://nonsense.domain/John-D-4/Project-2/Wingspan_ft_without_winglets_sharklets> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "038-P2" ;
+     rdfs:label "Wingspan_ft_without_winglets_sharklets"@en ;
+     skos:definition "Wingspan is measured from tip to tip."@en ;
+     skos:example "140"@en .
+## Wingspan_ft_with_winglets_sharklets
+<http://nonsense.domain/John-D-4/Project-2/Wingspan_ft_with_winglets_sharklets> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "039-P2" ;
+     rdfs:label "Wingspan_ft_with_winglets_sharklets"@en ;
+     skos:definition "Wingspan is measured from tip to tip."@en ;
+     skos:example "40.2 feet"@en .
+## Length_ft
+<http://nonsense.domain/John-D-4/Project-2/Length_ft> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "010-P2" ;
+     rdfs:label "Length_ft"@en ;
+     skos:definition "Aircraft total length"@en ;
+     skos:example "45.4 feet"@en .
+## Tail_Height_at_OEW_ft
+<http://nonsense.domain/John-D-4/Project-2/Tail_Height_at_OEW_ft> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "011-P2" ;
+     rdfs:label "Tail_Height_at_OEW_ft"@en ;
+     skos:definition "Highest point of tail over ground while parked"@en ;
+     skos:example "15.5 feet"@en .
+## Wheelbase_ft
+<http://nonsense.domain/John-D-4/Project-2/Wheelbase_ft> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "012-P2" ;
+     rdfs:label "Wheelbase_ft"@en ;
+     skos:definition "Distance between outermost wheels"@en ;
+     skos:example "20.2"@en .
+## Cockpit_to_Main_Gear_ft
+<http://nonsense.domain/John-D-4/Project-2/Cockpit_to_Main_Gear_ft> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "013-P2" ;
+     rdfs:label "Cockpit_to_Main_Gear_ft"@en ;
+     skos:definition "Aircraft Cockpit to Main Gear (CMG) Distance, In most General Aviation aircraft where the cockpit is located aft of the nose gear, CMG is equal to Wheelbase."@en ;
+     skos:example "30.4"@en .
+## Main_Gear_Width_ft
+<http://nonsense.domain/John-D-4/Project-2/Main_Gear_Width_ft> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "014-P2" ;
+     rdfs:label "Main_Gear_Width_ft"@en ;
+     skos:definition "Distance between outer edges of main landing gear"@en ;
+     skos:example "35.8"@en .
+## MTOW_lb
+<http://nonsense.domain/John-D-4/Project-2/MTOW_lb> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "015-P2" ;
+     rdfs:label "MTOW_lb"@en ;
+     skos:definition "Maximum Takeoff Gross Weight (MTOW)"@en ;
+     skos:example "12,400"@en .
+## MALW_lb
+<http://nonsense.domain/John-D-4/Project-2/MALW_lb> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "016-P2" ;
+     rdfs:label "MALW_lb"@en ;
+     skos:definition "Maximum Allowable Landing Weight (MALW)"@en ;
+     skos:example "910 pounds"@en .
+## Main_Gear_Config
+<http://nonsense.domain/John-D-4/Project-2/Main_Gear_Config> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "017-P2" ;
+     rdfs:label "Main_Gear_Config"@en ;
+     skos:definition "Main Gears Configuration"@en ;
+     skos:example "Tricycle; Skid; Float"@en .
+## ICAO_WTC
+<http://nonsense.domain/John-D-4/Project-2/ICAO_WTC> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "018-P2" ;
+     rdfs:label "ICAO_WTC"@en ;
+     skos:definition "ICAO Weight Turbulence Category (WTC)"@en ;
+     skos:example "Super (J), Heavy (H), Medium (M), and Light (L) are WTC categories."@en .
+## Parking_Area_ft2
+<http://nonsense.domain/John-D-4/Project-2/Parking_Area_ft2> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "019-P2" ;
+     rdfs:label "Parking_Area_ft2"@en ;
+     skos:definition "Minimum Parking Position Sizing = (Wingspan + 10 feet)*(Length + 5 feet)"@en ;
+     skos:example "5,120.5 square feet"@en .
+## Class
+<http://nonsense.domain/John-D-4/Project-2/Class> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "020-P2" ;
+     rdfs:label "Class"@en ;
+     skos:definition "Lift class "@en ;
+     skos:example "Fixed-wing"@en .
+## FAA_Weight
+<http://nonsense.domain/John-D-4/Project-2/FAA_Weight> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "021-P2" ;
+     rdfs:label "FAA_Weight"@en ;
+     skos:definition "..."@en ;
+     skos:example "Small+"@en .
+## CWT
+<http://nonsense.domain/John-D-4/Project-2/CWT> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "022-P2" ;
+     rdfs:label "CWT"@en ;
+     skos:definition "Consolidated Wake Turbulence Category. Category A (largest) to category I (smallest) based on aircraft maximum takeoff weight"@en ;
+     skos:example "H"@en .
+## One_Half_Wake_Category
+<http://nonsense.domain/John-D-4/Project-2/One_Half_Wake_Category> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "023-P2" ;
+     rdfs:label "One_Half_Wake_Category"@en ;
+     skos:definition "RECAT (Recategorization) 1.5 Wake Category: Category A to category F based on aircraft wingspan and maximum takeoff weight."@en ;
+     skos:example "Category B"@en .
+## Two_Wake_Category_Appx_A
+<http://nonsense.domain/John-D-4/Project-2/Two_Wake_Category_Appx_A> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "023-P2" ;
+     rdfs:label "Two_Wake_Category_Appx_A"@en ;
+     skos:definition "RECAT (Recategorization) 2 Wake Category (Appendix A): Category A to category G based on aircraft wingspan and maximum takeoff weight"@en ;
+     skos:example "Category C"@en .
+## Two_Wake_Category_Appx_B
+<http://nonsense.domain/John-D-4/Project-2/Two_Wake_Category_Appx_B> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "024-P2" ;
+     rdfs:label "Two_Wake_Category_Appx_B"@en ;
+     skos:definition "RECAT (Recategorization) 2 Wake Category (Appendix B): "@en ;
+     skos:example "Category A"@en .
+## Rotor_Diameter_ft
+<http://nonsense.domain/John-D-4/Project-2/Rotor_Diameter_ft> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "025-P2" ;
+     rdfs:label "Rotor_Diameter_ft"@en ;
+     skos:definition "Rotor Diameter: Applicable to helicopters and tiltrotors"@en ;
+     skos:example "20 feet"@en .
+## SRS
+<http://nonsense.domain/John-D-4/Project-2/SRS> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "026-P2" ;
+     rdfs:label "SRS"@en ;
+     skos:definition "Same Runway Separation Category. SRS determines separation between a departing aircraft from a preceding departing or arriving aircraft using the same runway."@en ;
+     skos:example "Five minutes of separation"@en .
+## LAHSO
+<http://nonsense.domain/John-D-4/Project-2/LAHSO> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "027-P2" ;
+     rdfs:label "LAHSO"@en ;
+     skos:definition "Land and Hold Short Operations Group."@en ;
+     skos:example "Groups 1 to 10"@en .
+## FAA_Registry
+<http://nonsense.domain/John-D-4/Project-2/FAA_Registry> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "028-P2" ;
+     rdfs:label "FAA_Registry"@en ;
+     skos:definition "Flag for FAA Registry."@en ;
+     skos:example "Yes if aircraft is registered by FAA, otherwise No."@en .
+
+## Registration_Count
+<http://nonsense.domain/John-D-4/Project-2/Registration_Count> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "029-P2" ;
+     rdfs:label "Registration_Count"@en ;
+     skos:definition "Registration Count in 2022 FAA Database"@en ;
+     skos:example "Total number of registered aircraft based on aircraft ICAO code and the sub-model."@en .
+
+## TMFS_Operations_FY24
+<http://nonsense.domain/John-D-4/Project-2/TMFS_Operations_FY24> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "040-P2" ;
+     rdfs:label "TMFS_Operations_FY24"@en ;
+     skos:definition "Total NAS Operations with TFMS Flight Plan (IFR or VFR) in year indicated. Underestimation of operations for small piston aircraft that operate mostly (~55%) without flight plans"@en ;
+     skos:example "510 flights"@en .
+
+## LastUpdate
+<http://nonsense.domain/John-D-4/Project-2/LastUpdate> rdf:type owl:Class ;
+     rdfs:subClassOf <p2:000-P2> ,
+                     [ rdf:type owl:class ;
+                       owl:onProperty <http://purl.obolibrary.org/obo/BFO_0000178> ;
+                       owl:allValuesFrom <p2:000-P2>
+                     ] ;
+     dc11:identifier "041-P2" ;
+     rdfs:label "LastUpdate"@en ;
+     skos:definition "Date on which aircraft data record was last updated"@en ;
+     skos:example "2025-09-11"@en .
