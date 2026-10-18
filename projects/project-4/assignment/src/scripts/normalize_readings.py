@@ -69,37 +69,55 @@ def _norm_kind(k: Any) -> str | None:
     return s
 
 
+CELSIUS    = {"celsius", "°c", "c"}
+FAHRENHEIT = {"fahrenheit", "°f", "f"}
+KELVIN     = {"kelvin", "k"}
+PSI        = {"psi"}
+KILOPASCAL = {"kpa", "kilopascal", "kilopascals"}
+PASCAL     = {"pa", "pascal", "pascals"}
+VOLT       = {"v", "volt", "volts"}
+OHM        = {"ohm", "ohms", "Ω", "ω"}
+
+
 def _norm_unit(u: Any) -> str | None:
-    """Normalize unit spelling/abbrev only (no numeric conversions)."""
+    """Map a raw unit to its SI unit label (values are converted to match in _to_si_value)."""
     if u is None:
         return None
     s = str(u).strip()
     if not s:
         return None
     low = s.lower()
-    # temperature
-    if low in {"celsius", "°c", "c"}:
-        return "C"
-    if low in {"fahrenheit", "°f", "f"}:
-        return "F"
-    # pressure
-    if low == "psi":
-        return "psi"
-    if low in {"kpa", "kilopascal", "kilopascals"}:
-        return "kPa"
-    # electrical
-    if low in {"v", "volt", "volts"}:
+    if low in CELSIUS | FAHRENHEIT | KELVIN:
+        return "K"
+    if low in PSI | KILOPASCAL | PASCAL:
+        return "Pa"
+    if low in VOLT:
         return "V"
-    if low in {"ohm", "ohms", "Ω", "ω"}:
+    if low in OHM:
         return "ohm"
-    # pass through otherwise
     return s
+
+
+def _to_si_value(value: float | None, u: Any) -> float | None:
+    """Convert a reading from its raw unit to the SI unit chosen by _norm_unit."""
+    if value is None or pd.isna(value):
+        return None
+    low = str(u).strip().lower()
+    if low in CELSIUS:
+        return value + 273.15
+    if low in FAHRENHEIT:
+        return (value - 32.0) * 5.0 / 9.0 + 273.15
+    if low in PSI:
+        return value * 6894.757293168
+    if low in KILOPASCAL:
+        return value * 1000.0
+    return value
 
 
 # ---------- Loaders for each source ----------
 def load_sensor_a(path: Path) -> pd.DataFrame:
     """
-    CSV columns (exact): Device Name, Reading Type, Reading Value, Units, Time (Local)
+    CSV columns (exact): Device Name, Reading Type, Reading Value, Units, Time (Local, ugh)
     Maps to canonical columns.
     """
     if not path.exists():
@@ -158,12 +176,17 @@ def normalize_and_clean(df: pd.DataFrame) -> pd.DataFrame:
     for col in ["artifact_id", "sdc_kind", "unit_label", "timestamp"]:
         df[col] = df[col].astype(str).str.strip()
 
+    # Coerce value before unit relabeling overwrites the raw unit string
+    df["value"] = df["value"].apply(_to_float)
+
+    # Convert every reading to SI (K, Pa, V, ohm) so each quantity kind has one unit.
+    df["value"] = [_to_si_value(v, u) for v, u in zip(df["value"], df["unit_label"])]
+
     # Normalize labels
     df["sdc_kind"] = df["sdc_kind"].apply(_norm_kind)
     df["unit_label"] = df["unit_label"].apply(_norm_unit)
 
-    # Coerce types
-    df["value"] = df["value"].apply(_to_float)
+    # Coerce remaining types
     df["timestamp"] = df["timestamp"].apply(_to_iso_utc)
 
     # Diagnostics
@@ -195,7 +218,7 @@ def main():
     print("[paths] C:", IN_C)
     df_a = load_sensor_a(IN_A)
     df_b = load_sensor_b(IN_B)
-    df_c = load_sensor_a(IN_C)
+    df_c = load_sensor_a(IN_C)  # sensor_C.csv shares sensor_A's CSV layout
 
     print(f"[normalize_readings] Input A rows: {len(df_a)}")
     print(f"[normalize_readings] Input B rows: {len(df_b)}")
