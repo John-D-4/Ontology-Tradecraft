@@ -28,7 +28,7 @@ When you have successfully concluded this project, you will have created a CI wo
 
 ## Automated Grading
 
-Your work will be automatically graded using the `.github/project4-tests.yml` workflow, which will check: 
+Your work will not be automatically graded using the `.github/project4-tests.yml` workflow, which would check: 
 1. That your `src/scripts/normalize_readings.py` script generates a `src/data/readings_normalized.csv` file according to the canonical scheme found in `src/ETL_Guide.md`.
 2. That your `src/scripts/measure_rdflib.py` script generates a `src/measure_cco.ttl` file that aligns with the design pattern found in `cco_measurement_design_pattern.pptx`
 3. Your `src/sparql/` includes 8 valid SPARQL queries according to the guidance provided.
