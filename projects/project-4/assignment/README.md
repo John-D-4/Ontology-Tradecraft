@@ -22,9 +22,9 @@ flowchart LR
 
   v["value<br/>xsd:decimal"]:::lit
   t["timestamp<br/>xsd:dateTime"]:::lit
-  ul["unit label, e.g. &quot;Pa&quot;<br/>xsd:string"]:::lit
-  sk["quantity kind, e.g. &quot;pressure&quot;@en"]:::lit
-  uk["quantity kind, e.g. &quot;pressure&quot;@en"]:::lit
+  ul["unit label, e.g. Pa<br/>xsd:string"]:::lit
+  sk["quantity kind, e.g. pressure"]:::lit
+  uk["quantity kind, e.g. pressure"]:::lit
 
   a -->|rdf:type| ART
   s -->|rdf:type| SDC
@@ -48,7 +48,7 @@ flowchart LR
 
 ## Example: Boiler-07
 
-This slice of the actual output omits `rdf:type` edges. Boiler-07 reports temperature in °F in sensor A and in °C in sensor B. After conversion to kelvin, both readings share one unit, and both measure the same temperature SDC.
+This slice of the actual output omits `rdf:type` edges. Boiler-07 reports temperature in °F in sensor A and in °C in sensor B, and they can both get in the bin. We convert to K for value and they are mapped as SDCs.
 
 ```mermaid
 flowchart LR
@@ -94,6 +94,5 @@ flowchart LR
 
 ## Model notes
 
-- ETL adheres to SI and so converts psi (× 6894.757) and kPa (× 1000) to Pa. Temperature is converted to kelvin (K = °C + 273.15; K = (°F − 32) × 5/9 + 273.15). V and ohm are already SI.
-- Chiller 3 and Chiller-3 are assumed to be discrete from ecah other, because i have 0 chill and this is where SME consultation is required
-- 
+- ETL and JH4 both adhere to SI and we convert psi (× 6894.757) and kPa (× 1000) to Pa. Temperature is converted to kelvin (K = °C + 273.15; K = (°F − 32) × 5/9 + 273.15). V and ohm are acceptable.
+- Chiller 3 and Chiller-3 are assumed to be discrete from ecah other, because i have 0 chill and this is where SME consultation is required. 
