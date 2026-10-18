@@ -1,6 +1,25 @@
-# Title: 
+# Title:
 #    No Extra Annotation Whitespace
-# Constraint Description: 
-#    No annotation value may have leading or trailing whitespace.    
+# Constraint Description:
+#    No annotation value may have leading or trailing whitespace.
 # Severity:
-#    Error 
+#    Error
+#
+# A valid ontology should return ZERO rows.
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT DISTINCT ?element ?annotation ?value ?error
+WHERE {
+  VALUES ?annotation { rdfs:label rdfs:comment skos:definition skos:altLabel }
+  ?element ?annotation ?value .
+  FILTER (isLiteral(?value))
+  FILTER (
+    STRSTARTS(STR(?value), " ")  || STRENDS(STR(?value), " ") ||
+    STRSTARTS(STR(?value), "\t") || STRENDS(STR(?value), "\t") ||
+    STRSTARTS(STR(?value), "\n") || STRENDS(STR(?value), "\n")
+  )
+  BIND (concat("ERROR: ", str(?annotation), " value on ", str(?element), " has leading/trailing whitespace.") AS ?error)
+}
+ORDER BY ?element

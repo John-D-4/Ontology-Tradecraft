@@ -1,6 +1,21 @@
-# Title:  
+# Title:
 #    No cyclical definitions
-# Constraint Description:  
-#    No class definition should be self-referential. 
-# Severity:  
+# Constraint Description:
+#    No class definition should be self-referential.
+# Severity:
 #    Error
+#
+# A valid ontology should return ZERO rows: a class's own skos:definition
+# should not mention the class by its own rdfs:label (a circular definition).
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+
+SELECT DISTINCT ?class ?label ?definition ?error
+WHERE {
+  ?class rdfs:label ?label .
+  ?class skos:definition ?definition .
+  FILTER (CONTAINS(LCASE(STR(?definition)), LCASE(STR(?label))))
+  BIND (concat("ERROR: The definition of ", str(?class), " is self-referential (mentions its own label '", str(?label), "').") AS ?error)
+}
+ORDER BY ?class

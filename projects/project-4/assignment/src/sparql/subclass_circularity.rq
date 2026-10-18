@@ -1,6 +1,18 @@
-# Title:  
+# Title:
 #    Class SubClassOf Hierarchy Circularity
-# Constraint Description:  
+# Constraint Description:
 #    No class should appear in a circular `subClassOf` hierarchy.
-# Severity:  
+# Severity:
 #    Error
+#
+# A valid ontology should return ZERO rows: no class should be its own
+# ancestor via one or more rdfs:subClassOf hops.
+
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+
+SELECT DISTINCT ?class ?error
+WHERE {
+  ?class rdfs:subClassOf+ ?class .
+  BIND (concat("ERROR: Class ", str(?class), " is involved in a circular subClassOf hierarchy.") AS ?error)
+}
+ORDER BY ?class

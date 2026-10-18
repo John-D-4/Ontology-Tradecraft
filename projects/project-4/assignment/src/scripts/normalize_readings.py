@@ -11,9 +11,6 @@ import datetime as _dt
 SCRIPT_DIR = Path(__file__).resolve().parent          # .../src/scripts
 SRC_DIR    = SCRIPT_DIR.parent                         # .../src
 DATA_DIR   = SRC_DIR / "data"                          # .../src/data
-IN_A       = DATA_DIR / "sensor_A.csv"
-IN_B       = DATA_DIR / "sensor_B.json"
-IN_C       = DATA_DIR / "sensor_C.csv"
 OUT        = DATA_DIR / "readings_normalized.csv"
 
 CANON = ["artifact_id", "sdc_kind", "unit_label", "value", "timestamp"]
@@ -70,7 +67,7 @@ def _norm_kind(k: Any) -> str | None:
 
 
 def _norm_unit(u: Any) -> str | None:
-    """Normalize unit spelling/abbrev only (no numeric conversions)."""
+    """Normalize unit spelling/abbrev. Pressure units are unified to Pa (see _pressure_to_pa_factor)."""
     if u is None:
         return None
     s = str(u).strip()
@@ -82,11 +79,11 @@ def _norm_unit(u: Any) -> str | None:
         return "C"
     if low in {"fahrenheit", "°f", "f"}:
         return "F"
-    # pressure
+    # pressure (value is converted to match, see _pressure_to_pa_factor)
     if low == "psi":
-        return "psi"
+        return "Pa"
     if low in {"kpa", "kilopascal", "kilopascals"}:
-        return "kPa"
+        return "Pa"
     # electrical
     if low in {"v", "volt", "volts"}:
         return "V"
@@ -94,6 +91,18 @@ def _norm_unit(u: Any) -> str | None:
         return "ohm"
     # pass through otherwise
     return s
+
+
+def _pressure_to_pa_factor(u: Any) -> float | None:
+    """Return the multiplier that converts a raw pressure unit to Pascals, or None if not pressure."""
+    if u is None:
+        return None
+    low = str(u).strip().lower()
+    if low == "psi":
+        return 6894.757293168
+    if low in {"kpa", "kilopascal", "kilopascals"}:
+        return 1000.0
+    return None
 
 
 # ---------- Loaders for each source ----------
@@ -158,12 +167,20 @@ def normalize_and_clean(df: pd.DataFrame) -> pd.DataFrame:
     for col in ["artifact_id", "sdc_kind", "unit_label", "timestamp"]:
         df[col] = df[col].astype(str).str.strip()
 
+    # Coerce value before unit relabeling overwrites the raw unit string
+    df["value"] = df["value"].apply(_to_float)
+
+    # Convert pressure readings (psi, kPa) to a single SI unit (Pa) so the
+    # normalized data uses one consistent unit per quantity kind.
+    pa_factor = df["unit_label"].apply(_pressure_to_pa_factor)
+    is_pressure = pa_factor.notna()
+    df.loc[is_pressure, "value"] = df.loc[is_pressure, "value"] * pa_factor[is_pressure]
+
     # Normalize labels
     df["sdc_kind"] = df["sdc_kind"].apply(_norm_kind)
     df["unit_label"] = df["unit_label"].apply(_norm_unit)
 
-    # Coerce types
-    df["value"] = df["value"].apply(_to_float)
+    # Coerce remaining types
     df["timestamp"] = df["timestamp"].apply(_to_iso_utc)
 
     # Diagnostics
@@ -189,19 +206,26 @@ def normalize_and_clean(df: pd.DataFrame) -> pd.DataFrame:
     return df
 
 
+def discover_inputs() -> List[Path]:
+    """Every dataset in src/data/ (CSV in the sensor_A layout, JSON in the sensor_B layout), minus our own output."""
+    return sorted(
+        p for p in DATA_DIR.iterdir()
+        if p.suffix.lower() in {".csv", ".json"} and p.resolve() != OUT.resolve()
+    )
+
+
 def main():
-    print("[paths] A:", IN_A)
-    print("[paths] B:", IN_B)
-    print("[paths] C:", IN_C)
-    df_a = load_sensor_a(IN_A)
-    df_b = load_sensor_b(IN_B)
-    df_c = load_sensor_a(IN_C)
+    inputs = discover_inputs()
+    if not inputs:
+        raise FileNotFoundError(f"No input datasets found in {DATA_DIR}")
 
-    print(f"[normalize_readings] Input A rows: {len(df_a)}")
-    print(f"[normalize_readings] Input B rows: {len(df_b)}")
-    print(f"[normalize_readings] Input C rows: {len(df_c)}")
+    frames = []
+    for path in inputs:
+        df = load_sensor_b(path) if path.suffix.lower() == ".json" else load_sensor_a(path)
+        print(f"[normalize_readings] Input {path.name}: {len(df)} rows")
+        frames.append(df)
 
-    combined = pd.concat([df_a, df_b, df_c], ignore_index=True)
+    combined = pd.concat(frames, ignore_index=True)
     cleaned = normalize_and_clean(combined)
 
     OUT.parent.mkdir(parents=True, exist_ok=True)

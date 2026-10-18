@@ -1,0 +1,136 @@
+@prefix bfo: <http://purl.obolibrary.org/obo/> .
+@prefix cco: <https://www.commoncoreontologies.org/> .
+@prefix ex: <http://example.org/onto-trade/measurements/> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+ex:artifact_Boiler-07 a cco:ont00000995 ;
+    bfo:BFO_0000196 ex:sdc_Boiler-07_pressure,
+        ex:sdc_Boiler-07_temperature .
+
+ex:artifact_Chiller-3 a cco:ont00000995 ;
+    bfo:BFO_0000196 ex:sdc_Chiller-3_temperature .
+
+ex:artifact_Chiller-4 a cco:ont00000995 ;
+    bfo:BFO_0000196 ex:sdc_Chiller-4_temperature .
+
+ex:artifact_Chiller_203 a cco:ont00000995 ;
+    bfo:BFO_0000196 ex:sdc_Chiller_203_temperature .
+
+ex:artifact_Circuit-12 a cco:ont00000995 ;
+    bfo:BFO_0000196 ex:sdc_Circuit-12_resistance,
+        ex:sdc_Circuit-12_voltage .
+
+ex:artifact_Pump-A1 a cco:ont00000995 ;
+    bfo:BFO_0000196 ex:sdc_Pump-A1_pressure .
+
+ex:mice_Boiler-07_pressure_1 a cco:ont00001163 ;
+    cco:ont00001767 "2024-03-17T19:04:00+00:00"^^xsd:dateTime ;
+    cco:ont00001769 101352.9322095696 ;
+    cco:ont00001863 ex:unit_Pa ;
+    cco:ont00001966 ex:sdc_Boiler-07_pressure .
+
+ex:mice_Boiler-07_pressure_3 a cco:ont00001163 ;
+    cco:ont00001767 "2024-03-17T23:04:00+00:00"^^xsd:dateTime ;
+    cco:ont00001769 101325.0 ;
+    cco:ont00001863 ex:unit_Pa ;
+    cco:ont00001966 ex:sdc_Boiler-07_pressure .
+
+ex:mice_Boiler-07_temperature_0 a cco:ont00001163 ;
+    cco:ont00001767 "2024-03-17T19:03:00+00:00"^^xsd:dateTime ;
+    cco:ont00001769 212.0 ;
+    cco:ont00001863 ex:unit_F ;
+    cco:ont00001966 ex:sdc_Boiler-07_temperature .
+
+ex:mice_Boiler-07_temperature_2 a cco:ont00001163 ;
+    cco:ont00001767 "2024-03-17T23:03:00+00:00"^^xsd:dateTime ;
+    cco:ont00001769 100.0 ;
+    cco:ont00001863 ex:unit_C ;
+    cco:ont00001966 ex:sdc_Boiler-07_temperature .
+
+ex:mice_Chiller-3_temperature_5 a cco:ont00001163 ;
+    cco:ont00001767 "2024-03-18T12:01:00+00:00"^^xsd:dateTime ;
+    cco:ont00001769 19.5 ;
+    cco:ont00001863 ex:unit_C ;
+    cco:ont00001966 ex:sdc_Chiller-3_temperature .
+
+ex:mice_Chiller-4_temperature_6 a cco:ont00001163 ;
+    cco:ont00001767 "2024-03-18T12:01:00+00:00"^^xsd:dateTime ;
+    cco:ont00001769 6.5 ;
+    cco:ont00001863 ex:unit_F ;
+    cco:ont00001966 ex:sdc_Chiller-4_temperature .
+
+ex:mice_Chiller-4_temperature_7 a cco:ont00001163 ;
+    cco:ont00001767 "2024-03-18T12:06:00+00:00"^^xsd:dateTime ;
+    cco:ont00001769 19.5 ;
+    cco:ont00001863 ex:unit_F ;
+    cco:ont00001966 ex:sdc_Chiller-4_temperature .
+
+ex:mice_Chiller_203_temperature_4 a cco:ont00001163 ;
+    cco:ont00001767 "2024-03-18T08:01:00+00:00"^^xsd:dateTime ;
+    cco:ont00001769 68.0 ;
+    cco:ont00001863 ex:unit_F ;
+    cco:ont00001966 ex:sdc_Chiller_203_temperature .
+
+ex:mice_Circuit-12_resistance_9 a cco:ont00001163 ;
+    cco:ont00001767 "2024-03-18T12:06:00+00:00"^^xsd:dateTime ;
+    cco:ont00001769 1.3 ;
+    cco:ont00001863 ex:unit_ohm ;
+    cco:ont00001966 ex:sdc_Circuit-12_resistance .
+
+ex:mice_Circuit-12_voltage_8 a cco:ont00001163 ;
+    cco:ont00001767 "2024-03-18T12:01:01+00:00"^^xsd:dateTime ;
+    cco:ont00001769 2.0 ;
+    cco:ont00001863 ex:unit_V ;
+    cco:ont00001966 ex:sdc_Circuit-12_voltage .
+
+ex:mice_Pump-A1_pressure_10 a cco:ont00001163 ;
+    cco:ont00001767 "2024-03-18T08:07:00+00:00"^^xsd:dateTime ;
+    cco:ont00001769 101325.0 ;
+    cco:ont00001863 ex:unit_Pa ;
+    cco:ont00001966 ex:sdc_Pump-A1_pressure .
+
+ex:unit_V a cco:ont00000120 ;
+    skos:altLabel "voltage"@en ;
+    cco:ont00001765 "V"^^xsd:string .
+
+ex:unit_ohm a cco:ont00000120 ;
+    skos:altLabel "resistance"@en ;
+    cco:ont00001765 "ohm"^^xsd:string .
+
+ex:sdc_Chiller-3_temperature a bfo:BFO_0000020 ;
+    skos:altLabel "temperature"@en .
+
+ex:sdc_Chiller_203_temperature a bfo:BFO_0000020 ;
+    skos:altLabel "temperature"@en .
+
+ex:sdc_Circuit-12_resistance a bfo:BFO_0000020 ;
+    skos:altLabel "resistance"@en .
+
+ex:sdc_Circuit-12_voltage a bfo:BFO_0000020 ;
+    skos:altLabel "voltage"@en .
+
+ex:sdc_Pump-A1_pressure a bfo:BFO_0000020 ;
+    skos:altLabel "pressure"@en .
+
+ex:unit_C a cco:ont00000120 ;
+    skos:altLabel "temperature"@en ;
+    cco:ont00001765 "C"^^xsd:string .
+
+ex:sdc_Boiler-07_pressure a bfo:BFO_0000020 ;
+    skos:altLabel "pressure"@en .
+
+ex:sdc_Boiler-07_temperature a bfo:BFO_0000020 ;
+    skos:altLabel "temperature"@en .
+
+ex:sdc_Chiller-4_temperature a bfo:BFO_0000020 ;
+    skos:altLabel "temperature"@en .
+
+ex:unit_Pa a cco:ont00000120 ;
+    skos:altLabel "pressure"@en ;
+    cco:ont00001765 "Pa"^^xsd:string .
+
+ex:unit_F a cco:ont00000120 ;
+    skos:altLabel "temperature"@en ;
+    cco:ont00001765 "F"^^xsd:string .
+
