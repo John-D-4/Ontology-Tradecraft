@@ -95,4 +95,9 @@ flowchart LR
 ## Model notes
 
 - ETL and JH4 both adhere to SI and we convert psi (× 6894.757) and kPa (× 1000) to Pa. Temperature is converted to kelvin (K = °C + 273.15; K = (°F − 32) × 5/9 + 273.15). V and ohm are acceptable.
-- Chiller 3 and Chiller-3 are assumed to be discrete from ecah other, because i have 0 chill and this is where SME consultation is required. 
+- Chiller 3 and Chiller-3 are assumed to be discrete from ecah other, because i have 0 chill and this is where SME consultation is required.
+
+## Problems
+
+- Checks look for the shacl in and out of src/shacl/ so I just copied the file to both locations. I figured this out before rattling apart like a cartoon jalopy this time.
+- i wish there was a better way to validate than this juggling of sensor c file. the logistical quirks of this environment are a huge distraction from the "real" stuff, or maybe that's the point. jbev's insidious like that.
